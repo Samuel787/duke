@@ -39,7 +39,7 @@ public class Duke {
                     System.out.println("    "+ i+"."+tasks.get(i-1)+"\n");
                 }
                 System.out.println("    ____________________________________________________________\n");
-            } else if(user_input.substring(0,4).equals("done")){
+            } else if(user_input.length() >= 4 && user_input.substring(0,4).equals("done")){
                 int task_no = Integer.parseInt(user_input.substring(5));
                 tasks.get(task_no - 1).setDone();
                 System.out.println("    ____________________________________________________________\n");
