@@ -1,0 +1,5 @@
+T|1|duke
+E|1|cs2113t class|9am on Friday
+D|1|sleep|2am
+T|0|hello
+T|0|get Cap 6.0

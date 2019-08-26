@@ -1,8 +1,14 @@
 public class Event extends Task {
-    String at;
+
+    protected String at;
+
     public Event(String description, String at){
         super(description);
         this.at = at;
+    }
+
+    public String getAt(){
+        return this.at;
     }
 
     @Override

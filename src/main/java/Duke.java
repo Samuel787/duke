@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,6 +12,11 @@ public class Duke {
         duke_start(duke_line, duke_indent);
 
         ArrayList<Task> tasks = new ArrayList<>();
+        try{
+            dukeInit(tasks);
+        } catch (DukeException d){
+            dukeHandleException(new DukeException("     ☹ OOPS!!! Could not load tasks from hard disk :-("), duke_line);
+        }
 
         while(true){
             Scanner scanner = new Scanner(System.in);
@@ -71,7 +77,13 @@ public class Duke {
             throw new DukeException("     ☹ OOPS!!! The description of a todo cannot be empty.");
         }
         Task currTask = new ToDo(user_input);
-        tasks.add(currTask);
+
+        try{
+            dukeAddTask(currTask, tasks);
+        } catch (DukeException d){
+            dukeHandleException(d, duke_line);
+        }
+        //tasks.add(currTask);
         System.out.println(duke_line);
         System.out.println(duke_indent + "Got it. I've added this task:");
         System.out.println(duke_indent + "  " +currTask);
@@ -95,7 +107,12 @@ public class Duke {
 
             //Data is okay
             Task currTask = new Event(data[0], data[1]);
-            tasks.add(currTask);
+            try{
+                dukeAddTask(currTask, tasks);
+            } catch (DukeException d){
+                dukeHandleException(d, duke_line);
+            }
+            //tasks.add(currTask);
             System.out.println(duke_line);
             System.out.println(duke_indent + "Got it. I've added this task:");
             System.out.println(duke_indent + "  " +currTask);
@@ -120,7 +137,12 @@ public class Duke {
                 throw new DukeException("     ☹ OOPS!!! You need to include some task deadline after /by");
             }
             Task currTask = new Deadline(data[0], data[1]);
-            tasks.add(currTask);
+            try{
+                dukeAddTask(currTask, tasks);
+            } catch (DukeException d){
+                dukeHandleException(d, duke_line);
+            }
+            //tasks.add(currTask);
             System.out.println(duke_line);
             System.out.println(duke_indent + "Got it. I've added this task:");
             System.out.println(duke_indent + "  " + currTask);
@@ -142,29 +164,57 @@ public class Duke {
     }
 
     private static void duke_done(String duke_line, String duke_indent, ArrayList<Task> tasks, String user_input) throws DukeException{
-//        try{
-            int task_num;
-            try{
-                task_num = Integer.parseInt(user_input.substring(5)) - 1;
-            } catch (NumberFormatException e){
-                throw new DukeException("     ☹ OOPS!!! Invalid done command entered. "+user_input.substring(5)+" is not an integer. Follow this format:done <task number>");
-            }
-
-            if(task_num >= 0){
-                try{
-                    tasks.get(task_num).setDone();
-                } catch (IndexOutOfBoundsException e){
-                    task_num++;
-                    throw new DukeException("     ☹ OOPS!!! Invalid done command entered. "+ task_num + " exceeds the number of tasks in the list.");
-                }
-                System.out.println(duke_line);
-                System.out.println(duke_indent+"Nice! I've marked this task as done:");
-                System.out.println(duke_indent+tasks.get(task_num));
-                System.out.println(duke_line);
-            } else {
+        int task_num;
+        try{
+            task_num = Integer.parseInt(user_input.substring(5)) - 1;
+        } catch (NumberFormatException e){
+            throw new DukeException("     ☹ OOPS!!! Invalid done command entered. "+user_input.substring(5)+" is not an integer. Follow this format:done <task number>");
+        }
+        if(task_num >= 0){
+            if(task_num >= tasks.size()){
                 task_num++;
-                throw new DukeException("     ☹ OOPS!!! Invalid done command entered. "+ task_num + " is less than 1.");
+                throw new DukeException("     ☹ OOPS!!! Invalid done command entered. "+ task_num + " exceeds the number of tasks in the list.");
             }
+            //update hard disk
+            try{
+                BufferedReader file = new BufferedReader(new FileReader("src/data/duke.txt"));
+                StringBuffer inputBuffer = new StringBuffer();
+                String line;
+                int x = 0;
+
+                while((line = file.readLine()) != null){
+                    if(x == task_num){
+                        String[] contents = line.split("\\|");
+                        contents[1] = "1"; //mark as done;
+                        line = "";
+                        for(int i=0; i<contents.length; i++){
+                            line += contents[i];
+                            if(i != contents.length-1){
+                                line +="|";
+                            }
+                        }
+                    }
+                    inputBuffer.append(line);
+                    inputBuffer.append('\n');
+                    x++;
+                }
+                file.close();
+
+                FileOutputStream fileOut = new FileOutputStream("src/data/duke.txt");
+                fileOut.write(inputBuffer.toString().getBytes());
+                fileOut.close();
+            } catch (IOException e){
+                throw new DukeException("     ☹ OOPS!!! Could not update task in hard disk right now :-(");
+            }
+            tasks.get(task_num).setDone(true);
+            System.out.println(duke_line);
+            System.out.println(duke_indent+"Nice! I've marked this task as done:");
+            System.out.println(duke_indent+tasks.get(task_num));
+            System.out.println(duke_line);
+        } else {
+            task_num++;
+            throw new DukeException("     ☹ OOPS!!! Invalid done command entered. "+ task_num + " is less than 1.");
+        }
     }
 
     private static void dukeHandleException(DukeException d, String duke_line){
@@ -172,4 +222,68 @@ public class Duke {
         System.out.println(d.getMessage());
         System.out.println(duke_line);
     }
+
+    private static void dukeInit(ArrayList<Task> tasks) throws DukeException{
+        //load tasks from the file
+        try{
+            FileReader fr = new FileReader("src/data/duke.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String str;
+            while((str = br.readLine()) != null){
+                String[] data = str.split("\\|");
+                if(data[0].equals("T")){
+                    ToDo toDo = new ToDo(data[2]);
+                    if(data[1].equals("1")){
+                        toDo.setDone(true);
+                    }
+                    tasks.add(toDo);
+                } else if(data[0].equals("D")){
+                    Deadline deadline = new Deadline(data[2], data[3]);
+                    if(data[1].equals("1")){
+                        deadline.setDone(true);
+                    }
+                    tasks.add(deadline);
+                } else if(data[0].equals("E")){
+                    Event event = new Event(data[2], data[3]);
+                    if(data[1].equals("1")){
+                        event.setDone(true);
+                    }
+                    tasks.add(event);
+                }
+            }
+            br.close();
+        } catch (IOException e){
+            throw new DukeException("");
+        }
+    }
+
+    private static void dukeAddTask(Task task, ArrayList<Task> tasks) throws DukeException{
+        try{
+            //write task to the file
+            FileWriter fw = new FileWriter("src/data/duke.txt", true);
+            PrintWriter pw = new PrintWriter(fw);
+
+            if(task instanceof ToDo){
+                ToDo toDo = (ToDo)task;
+                int isDone = (toDo.getIsDone()) ? 1 : 0;
+                pw.println("T|" + isDone + "|"+ toDo.getDescription());
+            } else if(task instanceof Event){
+                Event event = (Event)task;
+                int isDone = (event.getIsDone()) ? 1 : 0;
+                pw.println("E|" + isDone + "|"+event.getDescription()+"|"+event.getAt());
+            } else if(task instanceof Deadline){
+                Deadline deadline = (Deadline)task;
+                int isDone = (deadline.getIsDone()) ? 1 : 0;
+                pw.println("D|"+isDone+"|"+deadline.getDescription()+"|"+deadline.getBy());
+            }
+            pw.close();
+            fw.close();
+            tasks.add(task);
+        } catch(IOException e){
+            //error handling here
+            throw new DukeException("     ☹ OOPS!!! Due to some file writing error, this task isn't added :-(");
+        }
+    }
+
+
 }
