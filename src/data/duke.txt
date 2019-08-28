@@ -1,5 +1,8 @@
-T|1|duke
-E|1|cs2113t class|9am on Friday
-D|1|sleep|2am
-T|0|hello
-T|0|get Cap 6.0
+D|1|go to sleep|26th of August 2019, 11:28pm
+E|1|team meeting|27th of August 2019, 10am-12pm
+D|0|....|16th of September 2018, 7:78pm
+T|0|win orbital
+D|0|attack|19th of February 2019, 6:60pm
+D|0|attack|19th of February 2019, 6:61pm
+E|0|..|2nd of February 2019, 4pm-1pm
+E|0|eat mala|29th of August 2019, 6pm-7pm

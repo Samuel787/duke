@@ -106,18 +106,19 @@ public class Duke {
             }
 
             //Data is okay
-            Task currTask = new Event(data[0], data[1]);
+
             try{
+                Task currTask = new Event(data[0], DateTimeParser.parseEventInfo(data[1], duke_indent));
                 dukeAddTask(currTask, tasks);
+                System.out.println(duke_line);
+                System.out.println(duke_indent + "Got it. I've added this task:");
+                System.out.println(duke_indent + "  " +currTask);
+                System.out.println(duke_indent + "Now you have "+tasks.size()+" tasks in the list.");
+                System.out.println(duke_line);
             } catch (DukeException d){
                 dukeHandleException(d, duke_line);
             }
-            //tasks.add(currTask);
-            System.out.println(duke_line);
-            System.out.println(duke_indent + "Got it. I've added this task:");
-            System.out.println(duke_indent + "  " +currTask);
-            System.out.println(duke_indent + "Now you have "+tasks.size()+" tasks in the list.");
-            System.out.println(duke_line);
+
         } else {
             //user input format wrong
             throw new DukeException("     ☹ OOPS!!! You must separate the event description and timing with /at ");
@@ -136,18 +137,18 @@ public class Duke {
             if(data[1].equals("")){
                 throw new DukeException("     ☹ OOPS!!! You need to include some task deadline after /by");
             }
-            Task currTask = new Deadline(data[0], data[1]);
+
             try{
+                Task currTask = new Deadline(data[0], DateTimeParser.parseDeadlineInfo(data[1], duke_indent));
                 dukeAddTask(currTask, tasks);
+                System.out.println(duke_line);
+                System.out.println(duke_indent + "Got it. I've added this task:");
+                System.out.println(duke_indent + "  " + currTask);
+                System.out.println(duke_indent + "Now you have "+tasks.size()+" tasks in the list.");
+                System.out.println(duke_line);
             } catch (DukeException d){
                 dukeHandleException(d, duke_line);
             }
-            //tasks.add(currTask);
-            System.out.println(duke_line);
-            System.out.println(duke_indent + "Got it. I've added this task:");
-            System.out.println(duke_indent + "  " + currTask);
-            System.out.println(duke_indent + "Now you have "+tasks.size()+" tasks in the list.");
-            System.out.println(duke_line);
         } else {
             //user input format wrong
             throw new DukeException("     ☹ OOPS!!! You must separate the task and deadline with /by ");
