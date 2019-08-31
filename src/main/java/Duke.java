@@ -51,7 +51,9 @@ public class Duke {
                 } catch(DukeException d){
                     dukeHandleException(d, duke_line);
                 }
-            } else {
+            } else if(user_input.length() >= 5 && user_input.substring(0,5).equals("find ")){
+                dukeFindTask(tasks, user_input.substring(5), duke_line, duke_indent);
+            }else {
                 dukeHandleException(new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-("), duke_line);
             }
         }
@@ -284,6 +286,22 @@ public class Duke {
             //error handling here
             throw new DukeException("     ☹ OOPS!!! Due to some file writing error, this task isn't added :-(");
         }
+    }
+
+    /**
+     *  We will loop through the tasks arraylist to find for task descriptions with matching keyword
+     * */
+    private static void dukeFindTask(ArrayList<Task> tasks, String keyword, String duke_line, String duke_indent){
+        System.out.println(duke_line);
+        System.out.println(duke_indent+"Here are the matching tasks in your list:");
+        int counter = 1;
+        for(Task task:tasks){
+            if(task.getDescription().contains(keyword)){
+                System.out.println(duke_indent+counter+"."+task.getDescription());
+                counter++;
+            }
+        }
+        System.out.println(duke_line);
     }
 
 
