@@ -1,4 +1,1 @@
 T|1|eat macs
-T|1|eat burger king
-T|1|eat kfc
-T|1|eat pizza hut
