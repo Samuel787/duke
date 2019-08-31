@@ -330,6 +330,8 @@ public class Duke {
             System.out.println(duke_indent + tasks.get(taskNum-1));
             System.out.println(duke_indent+"Now you have "+(tasks.size()-1)+" tasks in the list.");
             System.out.println(duke_line);
+
+            //Used collections
             tasks.remove(taskNum-1);
             fileOut.close();
         } catch(IOException e){
