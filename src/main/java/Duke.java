@@ -51,7 +51,13 @@ public class Duke {
                 } catch(DukeException d){
                     dukeHandleException(d, duke_line);
                 }
-            } else {
+            } else if(user_input.length() >= 7 && user_input.substring(0,7).equals("delete ")){
+                try{
+                    dukeDeleteTask(tasks, user_input.substring(7), duke_line, duke_indent);
+                } catch(DukeException d){
+                    dukeHandleException(d, duke_line);
+                }
+            }else {
                 dukeHandleException(new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-("), duke_line);
             }
         }
@@ -284,6 +290,52 @@ public class Duke {
             //error handling here
             throw new DukeException("     ☹ OOPS!!! Due to some file writing error, this task isn't added :-(");
         }
+    }
+
+    private static void dukeDeleteTask(ArrayList<Task> tasks, String num, String duke_line, String duke_indent) throws DukeException{
+        int taskNum;
+        try{
+            taskNum = Integer.parseInt(num);
+        } catch (NumberFormatException n){
+            throw new DukeException("     ☹ OOPS!!! Please only enter the task number of the task that you want to delete");
+        }
+
+        if(taskNum < 1 || taskNum > tasks.size()){
+            throw new DukeException("     ☹ OOPS!!! Task "+taskNum+" does not exist");
+        }
+
+        //valid input -> proceed to delete the task from the file
+        try{
+            BufferedReader file = new BufferedReader(new FileReader("src/data/duke.txt"));
+            StringBuffer inputBuffer = new StringBuffer();
+            String line;
+            int x = 1;
+
+            while((line = file.readLine()) != null){
+                if(x == taskNum){
+                    x++;
+                    continue; //skip appending this line
+                }
+                inputBuffer.append(line);
+                inputBuffer.append('\n');
+                x++;
+            }
+            file.close();
+
+            FileOutputStream fileOut = new FileOutputStream("src/data/duke.txt");
+            fileOut.write(inputBuffer.toString().getBytes());
+
+            System.out.println(duke_line);
+            System.out.println(duke_indent+"Noted. I've removed this task:");
+            System.out.println(duke_indent + tasks.get(taskNum-1));
+            System.out.println(duke_indent+"Now you have "+(tasks.size()-1)+" tasks in the list.");
+            System.out.println(duke_line);
+            tasks.remove(taskNum-1);
+            fileOut.close();
+        } catch(IOException e){
+            throw new DukeException("     ☹ OOPS!!! Could not update task in hard disk right now :-(");
+        }
+
     }
 
 
