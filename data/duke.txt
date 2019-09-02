@@ -5,6 +5,12 @@ T|0|win orbital
 D|0|attack|19th of February 2019, 6:60pm
 D|0|attack|19th of February 2019, 6:61pm
 E|0|..|2nd of February 2019, 4pm-1pm
-E|0|eat mala|29th of August 2019, 6pm-7pm
-T|0|eat macs
+E|1|eat mala|29th of August 2019, 6pm-7pm
+T|1|eat macs
 T|1|watch money heist
+T|0|test task 11
+T|1|eat kfc
+T|0|i'm loving it
+T|0|please work!
+T|1|test run 1
+T|0|test run 1

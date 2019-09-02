@@ -4,18 +4,29 @@ REM create bin directory if it doesn't exist
 if not exist ..\bin mkdir ..\bin
 
 REM delete output from previous run
-del ACTUAL.TXT
+del ACTUAL.txt
 
-REM compile the code into the bin folder
-javac  -cp ..\src -Xlint:none -d ..\bin ..\src\main\java\*.java
-IF ERRORLEVEL 1 (
-    echo ********** BUILD FAILURE **********
-    exit /b 1
-)
-REM no error here, errorlevel == 0
+REM navigate to java folder to compile
+cd ..\src\main\java
+javac *.java
 
-REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ..\bin Duke < input.txt > ACTUAL.TXT
+REM delete all class files in bin
+del ..\..\..\bin\*.class
 
-REM compare the output to the expected output
-FC ACTUAL.TXT EXPECTED.TXT
+REM move all class files to bin
+move *.class ..\..\..\bin
+
+REM navigate to the bin folder now
+cd ..\..\..\bin
+
+REM move the data folder to the bin folder
+move ..\data .
+
+java Duke < ..\text-ui-test\input.txt > ..\text-ui-test\ACTUAL.txt
+FC ..\text-ui-test\ACTUAL.txt ..\text-ui-test\EXPECTED.txt
+
+REM move the data file back out
+move data ..\
+
+REM return back to testing directory
+cd ..\text-ui-test
