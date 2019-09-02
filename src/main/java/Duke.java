@@ -311,27 +311,27 @@ public class Duke {
         }
     }
 
-    private static void dukeDeleteTask(ArrayList<Task> tasks, String num, String duke_line, String duke_indent) throws DukeException{
+    private static void dukeDeleteTask(ArrayList<Task> tasks, String num, String duke_line, String duke_indent) throws DukeException {
         int taskNum;
-        try{
+        try {
             taskNum = Integer.parseInt(num);
-        } catch (NumberFormatException n){
+        } catch (NumberFormatException n) {
             throw new DukeException("     ☹ OOPS!!! Please only enter the task number of the task that you want to delete");
         }
 
-        if(taskNum < 1 || taskNum > tasks.size()){
-            throw new DukeException("     ☹ OOPS!!! Task "+taskNum+" does not exist");
+        if (taskNum < 1 || taskNum > tasks.size()) {
+            throw new DukeException("     ☹ OOPS!!! Task " + taskNum + " does not exist");
         }
 
         //valid input -> proceed to delete the task from the file
-        try{
+        try {
             BufferedReader file = new BufferedReader(new FileReader("src/data/duke.txt"));
             StringBuffer inputBuffer = new StringBuffer();
             String line;
             int x = 1;
 
-            while((line = file.readLine()) != null){
-                if(x == taskNum){
+            while ((line = file.readLine()) != null) {
+                if (x == taskNum) {
                     x++;
                     continue; //skip appending this line
                 }
@@ -345,17 +345,18 @@ public class Duke {
             fileOut.write(inputBuffer.toString().getBytes());
 
             System.out.println(duke_line);
-            System.out.println(duke_indent+"Noted. I've removed this task:");
-            System.out.println(duke_indent + tasks.get(taskNum-1));
-            System.out.println(duke_indent+"Now you have "+(tasks.size()-1)+" tasks in the list.");
+            System.out.println(duke_indent + "Noted. I've removed this task:");
+            System.out.println(duke_indent + tasks.get(taskNum - 1));
+            System.out.println(duke_indent + "Now you have " + (tasks.size() - 1) + " tasks in the list.");
             System.out.println(duke_line);
 
             //Used collections
-            tasks.remove(taskNum-1);
+            tasks.remove(taskNum - 1);
             fileOut.close();
-        } catch(IOException e){
+        } catch (IOException e) {
             throw new DukeException("     ☹ OOPS!!! Could not update task in hard disk right now :-(");
         }
+    }
     /**
      *  We will loop through the tasks arraylist to find for task descriptions with matching keyword
      * */
