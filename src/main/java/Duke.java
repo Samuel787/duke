@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Duke {
@@ -8,19 +9,33 @@ public class Duke {
 
         final String duke_line = "    ____________________________________________________________\n";
         final String duke_indent = "     ";
+        //final String data_file_path = "../../../data/duke.txt";
+        //final String data_file_path = "src/data/duke.txt";
+        final String data_file_path ="data/duke.txt";
 
         duke_start(duke_line, duke_indent);
 
         ArrayList<Task> tasks = new ArrayList<>();
         try{
-            dukeInit(tasks);
+            dukeInit(tasks, data_file_path);
         } catch (DukeException d){
             dukeHandleException(new DukeException("     ☹ OOPS!!! Could not load tasks from hard disk :-("), duke_line);
         }
 
+        Scanner scanner = new Scanner(System.in);
         while(true){
-            Scanner scanner = new Scanner(System.in);
-            String user_input = scanner.nextLine();
+            String user_input;
+            if(scanner.hasNextLine()){
+                user_input = scanner.nextLine();
+            } else {
+                try{
+                    user_input = scanner.nextLine();
+                } catch (NoSuchElementException e){
+                    //end of file
+                    break;
+                }
+            }
+
             if(user_input.equals("bye")){
                 duke_bye(duke_line, duke_indent);
                 break;
@@ -28,26 +43,26 @@ public class Duke {
                 duke_list(duke_line, duke_indent, tasks);
             } else if(user_input.length() >= 4 && user_input.substring(0,4).equals("done")){
                 try{
-                    duke_done(duke_line, duke_indent, tasks, user_input);
+                    duke_done(duke_line, duke_indent, tasks, user_input, data_file_path);
                 } catch(DukeException d){
                     dukeHandleException(d, duke_line);
                 }
             } else if(user_input.length() >= 4 && user_input.substring(0,4).equals("todo")){
                 try{
-                    duke_toDo(duke_line, duke_indent, tasks, user_input);
+                    duke_toDo(duke_line, duke_indent, tasks, user_input, data_file_path);
                 } catch(DukeException d){
                     dukeHandleException(d, duke_line);
                 }
             } else if(user_input.length() >= 5 && user_input.substring(0,5).equals("event")){
                 try{
-                    duke_event(duke_line, duke_indent, tasks, user_input);
+                    duke_event(duke_line, duke_indent, tasks, user_input, data_file_path);
                 } catch (DukeException d){
                     dukeHandleException(d, duke_line);
                 }
 
             } else if(user_input.length() >= 9 && user_input.substring(0,9).equals("deadline ")){
                 try{
-                    duke_deadline(duke_line, duke_indent, tasks, user_input);
+                    duke_deadline(duke_line, duke_indent, tasks, user_input, data_file_path);
                 } catch(DukeException d){
                     dukeHandleException(d, duke_line);
                 }
@@ -57,6 +72,8 @@ public class Duke {
                 } catch(DukeException d){
                     dukeHandleException(d, duke_line);
                 }
+            } else if(user_input.length() >= 5 && user_input.substring(0,5).equals("find ")){
+                dukeFindTask(tasks, user_input.substring(5), duke_line, duke_indent);
             }else {
                 dukeHandleException(new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-("), duke_line);
             }
@@ -76,7 +93,7 @@ public class Duke {
         System.out.println(duke_line);
     }
 
-    private static void duke_toDo(String duke_line, String duke_indent, ArrayList<Task> tasks, String user_input) throws DukeException{
+    private static void duke_toDo(String duke_line, String duke_indent, ArrayList<Task> tasks, String user_input, String file_path) throws DukeException{
         user_input = user_input.substring(4).trim();
         if (user_input.equals("")){
             //user did not add any task
@@ -85,7 +102,7 @@ public class Duke {
         Task currTask = new ToDo(user_input);
 
         try{
-            dukeAddTask(currTask, tasks);
+            dukeAddTask(currTask, tasks, file_path);
         } catch (DukeException d){
             dukeHandleException(d, duke_line);
         }
@@ -97,7 +114,7 @@ public class Duke {
         System.out.println(duke_line);
     }
 
-    private static void duke_event(String duke_line, String duke_indent, ArrayList<Task> tasks, String user_input) throws DukeException{
+    private static void duke_event(String duke_line, String duke_indent, ArrayList<Task> tasks, String user_input, String file_path) throws DukeException{
         user_input = user_input.substring(5);
         String[] data = user_input.split("/at", 2);
         if(data.length == 2){
@@ -115,7 +132,7 @@ public class Duke {
 
             try{
                 Task currTask = new Event(data[0], DateTimeParser.parseEventInfo(data[1], duke_indent));
-                dukeAddTask(currTask, tasks);
+                dukeAddTask(currTask, tasks, file_path);
                 System.out.println(duke_line);
                 System.out.println(duke_indent + "Got it. I've added this task:");
                 System.out.println(duke_indent + "  " +currTask);
@@ -131,7 +148,7 @@ public class Duke {
         }
     }
 
-    private static void duke_deadline(String duke_line, String duke_indent, ArrayList<Task> tasks, String user_input) throws DukeException{
+    private static void duke_deadline(String duke_line, String duke_indent, ArrayList<Task> tasks, String user_input, String file_path) throws DukeException{
         user_input = user_input.substring(9);
         String[] data = user_input.split("/by", 2);
         if(data.length == 2){
@@ -146,7 +163,7 @@ public class Duke {
 
             try{
                 Task currTask = new Deadline(data[0], DateTimeParser.parseDeadlineInfo(data[1], duke_indent));
-                dukeAddTask(currTask, tasks);
+                dukeAddTask(currTask, tasks, file_path);
                 System.out.println(duke_line);
                 System.out.println(duke_indent + "Got it. I've added this task:");
                 System.out.println(duke_indent + "  " + currTask);
@@ -170,7 +187,7 @@ public class Duke {
         System.out.println(duke_line);
     }
 
-    private static void duke_done(String duke_line, String duke_indent, ArrayList<Task> tasks, String user_input) throws DukeException{
+    private static void duke_done(String duke_line, String duke_indent, ArrayList<Task> tasks, String user_input, String file_path) throws DukeException{
         int task_num;
         try{
             task_num = Integer.parseInt(user_input.substring(5)) - 1;
@@ -184,7 +201,7 @@ public class Duke {
             }
             //update hard disk
             try{
-                BufferedReader file = new BufferedReader(new FileReader("src/data/duke.txt"));
+                BufferedReader file = new BufferedReader(new FileReader(file_path));
                 StringBuffer inputBuffer = new StringBuffer();
                 String line;
                 int x = 0;
@@ -207,7 +224,7 @@ public class Duke {
                 }
                 file.close();
 
-                FileOutputStream fileOut = new FileOutputStream("src/data/duke.txt");
+                FileOutputStream fileOut = new FileOutputStream(file_path);
                 fileOut.write(inputBuffer.toString().getBytes());
                 fileOut.close();
             } catch (IOException e){
@@ -230,11 +247,13 @@ public class Duke {
         System.out.println(duke_line);
     }
 
-    private static void dukeInit(ArrayList<Task> tasks) throws DukeException{
+    private static void dukeInit(ArrayList<Task> tasks, String file_path) throws DukeException{
         //load tasks from the file
         try{
-            FileReader fr = new FileReader("src/data/duke.txt");
+
+            FileReader fr = new FileReader(file_path);
             BufferedReader br = new BufferedReader(fr);
+
             String str;
             while((str = br.readLine()) != null){
                 String[] data = str.split("\\|");
@@ -264,10 +283,10 @@ public class Duke {
         }
     }
 
-    private static void dukeAddTask(Task task, ArrayList<Task> tasks) throws DukeException{
+    private static void dukeAddTask(Task task, ArrayList<Task> tasks, String file_path) throws DukeException{
         try{
             //write task to the file
-            FileWriter fw = new FileWriter("src/data/duke.txt", true);
+            FileWriter fw = new FileWriter(file_path, true);
             PrintWriter pw = new PrintWriter(fw);
 
             if(task instanceof ToDo){
@@ -337,8 +356,19 @@ public class Duke {
         } catch(IOException e){
             throw new DukeException("     ☹ OOPS!!! Could not update task in hard disk right now :-(");
         }
-
+    /**
+     *  We will loop through the tasks arraylist to find for task descriptions with matching keyword
+     * */
+    private static void dukeFindTask(ArrayList<Task> tasks, String keyword, String duke_line, String duke_indent){
+        System.out.println(duke_line);
+        System.out.println(duke_indent+"Here are the matching tasks in your list:");
+        int counter = 1;
+        for(Task task:tasks){
+            if(task.getDescription().contains(keyword)){
+                System.out.println(duke_indent+counter+"."+task.getDescription());
+                counter++;
+            }
+        }
+        System.out.println(duke_line);
     }
-
-
 }
