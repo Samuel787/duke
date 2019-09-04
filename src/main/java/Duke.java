@@ -9,8 +9,7 @@ public class Duke {
 
         final String duke_line = "    ____________________________________________________________\n";
         final String duke_indent = "     ";
-        //final String data_file_path = "../../../data/duke.txt";
-        //final String data_file_path = "src/data/duke.txt";
+
         final String data_file_path ="data/duke.txt";
 
         duke_start(duke_line, duke_indent);
@@ -131,7 +130,7 @@ public class Duke {
             //Data is okay
 
             try{
-                Task currTask = new Event(data[0], DateTimeParser.parseEventInfo(data[1], duke_indent));
+                Task currTask = new Event(data[0], DateTimeParser.parseEventInfo(data[1]));
                 dukeAddTask(currTask, tasks, file_path);
                 System.out.println(duke_line);
                 System.out.println(duke_indent + "Got it. I've added this task:");
@@ -162,7 +161,7 @@ public class Duke {
             }
 
             try{
-                Task currTask = new Deadline(data[0], DateTimeParser.parseDeadlineInfo(data[1], duke_indent));
+                Task currTask = new Deadline(data[0], DateTimeParser.parseDeadlineInfo(data[1]));
                 dukeAddTask(currTask, tasks, file_path);
                 System.out.println(duke_line);
                 System.out.println(duke_indent + "Got it. I've added this task:");
@@ -357,7 +356,7 @@ public class Duke {
             throw new DukeException("     ☹ OOPS!!! Could not update task in hard disk right now :-(");
         }
     }
-    
+
     /**
      *  We will loop through the tasks arraylist to find for task descriptions with matching keyword
      * */

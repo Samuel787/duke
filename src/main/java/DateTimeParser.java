@@ -1,6 +1,6 @@
 public class DateTimeParser {
 
-    public static String parseDeadlineInfo(String by, String duke_indent) throws DukeException{
+    public static String parseDeadlineInfo(String by) throws DukeException{
         //expected input format: dd/mm/year time
         String[] data = by.split(" ", 2); //split by whitespace
         if(data.length != 2){
@@ -38,7 +38,7 @@ public class DateTimeParser {
 
     }
 
-    public static String parseEventInfo(String at, String duke_indent) throws DukeException{
+    public static String parseEventInfo(String at) throws DukeException{
         //expected input format dd/mm/year time-time
         String[] data = at.split(" ", 2); //split by whitespace
         if(data.length != 2){

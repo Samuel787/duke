@@ -18,3 +18,4 @@ T|0|test run 1
 T|0|eat macs
 T|0|eat macs
 T|0|eat macs
+T|0|21 blackjack
