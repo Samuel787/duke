@@ -6,9 +6,17 @@ public class Ui {
     final String duke_line;
     final String duke_indent;
 
+    final String logo;
+
     public Ui(){
         this.duke_line = "    ____________________________________________________________";
         this.duke_indent = "     ";
+        this.logo = duke_indent + " ____        _        \n"
+                + duke_indent +"|  _ \\ _   _| | _____ \n"
+                + duke_indent + "| | | | | | | |/ / _ \\\n"
+                + duke_indent + "| |_| | |_| |   <  __/\n"
+                + duke_indent + "|____/ \\__,_|_|\\_\\___|\n";
+
     }
 
     public String readCommand(){
@@ -20,13 +28,21 @@ public class Ui {
         }
     }
 
-
     public void showLine(){
         System.out.println(duke_line);
     }
 
-    public void showError(String err_msg){
-        System.out.println(duke_indent + err_msg);
+    public void showWelcome(){
+        System.out.println(logo);
+        System.out.println(duke_line);
+        System.out.println(duke_indent + "Hello! I'm Duke\n");
+        System.out.println(duke_indent + "What can I do for you?\n");
+        System.out.println(duke_line);
+    }
+
+
+    public void showError(DukeException d){
+        System.out.println(d.getMessage());
     }
 
     public void goodByeMessage(){
@@ -54,19 +70,18 @@ public class Ui {
         System.out.println(duke_indent+"Here are the matching tasks in your list:");
         int counter = 1;
         for(Task task : searchResults){
-            System.out.println(duke_indent+counter+"."+task.getDescription());
+            System.out.println(duke_indent+counter+"."+task);
             counter++;
         }
     }
+
     /**
      *  Lists out all the tasks
      * */
     public void listTasks(TaskList taskList){
-        for(int i=0; i < taskList.size(); i++){
-            System.out.println(taskList.get(i).toString());
+        for(int i=1; i <= taskList.size(); i++){
+            System.out.println(duke_indent + i +". " +taskList.get(i-1).toString());
         }
     }
-
-
 
 }

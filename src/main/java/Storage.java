@@ -6,7 +6,7 @@ public class Storage {
     private String file_path;
     private int numTasks;
 
-    public Storage(String file_path) throws DukeException{
+    public Storage(String file_path){
         this.file_path = file_path;
         numTasks = 0;
     }
@@ -16,7 +16,7 @@ public class Storage {
      *  It reads all the data from the data file and puts it into an ArrayList
      *  and returns this ArrayList
      * */
-    private ArrayList<Task> load() throws DukeException{
+    public ArrayList<Task> load() throws DukeException{
         ArrayList<Task> tasks = new ArrayList<>();
         try{
 

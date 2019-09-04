@@ -17,5 +17,7 @@ T|1|test run 1
 T|0|test run 1
 T|0|eat macs
 T|0|eat macs
-T|0|eat macs
-T|0|21 blackjack
+T|1|eat macs
+T|1|eat kfc
+E|0|hello world|4th of September 2019, 3pm-5pm
+D|1|hello world 2|5th of September 2019, 12pm
