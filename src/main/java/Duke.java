@@ -48,6 +48,7 @@ public class Duke extends Application{
         userInput = new TextField();
 
         sendButton = new Button("Send");
+        
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
