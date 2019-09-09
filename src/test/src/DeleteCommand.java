@@ -6,11 +6,10 @@ public class DeleteCommand extends Command {
         this.taskNum = taskNum;
     }
 
-    public String execute() throws DukeException{
+    public void execute() throws DukeException{
         storage.dukeDeleteTask(taskNum);
-        String msg = ui.deletedMessage(taskList.get(taskNum), taskList.size()-1);
+        ui.deletedMessage(taskList.get(taskNum), taskList.size()-1);
         taskList.delete(taskNum);
-        return msg;
     }
 
 }

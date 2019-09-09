@@ -9,7 +9,7 @@ public abstract class Command {
         this.ui = ui;
     }
 
-    abstract public String execute() throws DukeException;
+    abstract public void execute() throws DukeException;
 
     public boolean isExit(){
         return false;

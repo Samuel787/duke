@@ -7,9 +7,9 @@ public class DoneCommand extends Command {
         this.task_num = task_num;
     }
 
-    public String execute() throws DukeException{
+    public void execute() throws DukeException{
         storage.dukeDoneTask(task_num);
         taskList.setDone(task_num);
-        return ui.markDoneMessage(taskList.get(task_num));
+        ui.markDoneMessage(taskList.get(task_num));
     }
 }

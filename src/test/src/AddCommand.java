@@ -7,9 +7,9 @@ public class AddCommand extends Command {
         this.task = task;
     }
 
-    public String execute() throws DukeException{
+    public void execute() throws DukeException{
         storage.dukeAddTask(task);
         taskList.add(task);
-        return ui.addedMessage(task, taskList.size());
+        ui.addedMessage(task, taskList.size());
     }
 }

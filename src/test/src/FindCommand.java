@@ -9,14 +9,14 @@ public class FindCommand extends Command{
         this.keyword = keyword;
     }
 
-    public String execute(){
+    public void execute(){
         ArrayList<Task> searchResults = new ArrayList<>();
         for(int i = 0; i < taskList.size(); i++){
             if(taskList.get(i).getDescription().contains(keyword)){
                 searchResults.add(taskList.get(i));
             }
         }
-        return ui.foundTask(searchResults);
+        ui.foundTask(searchResults);
     }
 
 }
