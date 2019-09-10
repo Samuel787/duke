@@ -14,6 +14,7 @@ public class Parser {
     private Storage storage;
     private Ui ui;
 
+    public Parser(){}
     public Parser(TaskList taskList, Storage storage, Ui ui){
         this.taskList = taskList;
         this.storage = storage;
