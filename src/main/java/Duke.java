@@ -14,6 +14,7 @@ public class Duke {
             ui.showError(d);
             ui.showLine();
             taskList = new TaskList();
+            
         }
     }
 
