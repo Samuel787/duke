@@ -1,3 +1,5 @@
+package Duke;
+
 public class ListCommand extends Command{
 
     public ListCommand(TaskList taskList, Ui ui){
@@ -5,8 +7,8 @@ public class ListCommand extends Command{
     }
 
     @Override
-    public void execute() {
-        ui.listTasks(taskList);
+    public String execute() {
+        return ui.listTasks(taskList);
     }
 
 }

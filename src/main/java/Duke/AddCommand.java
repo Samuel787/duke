@@ -1,3 +1,5 @@
+package Duke;
+
 public class AddCommand extends Command {
 
     private Task task;
@@ -7,9 +9,9 @@ public class AddCommand extends Command {
         this.task = task;
     }
 
-    public void execute() throws DukeException{
+    public String execute() throws DukeException{
         storage.dukeAddTask(task);
         taskList.add(task);
-        ui.addedMessage(task, taskList.size());
+        return ui.addedMessage(task, taskList.size());
     }
 }

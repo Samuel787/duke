@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
+package Duke;
 
 public class Parser {
 
@@ -118,7 +115,7 @@ public class Parser {
         }
 
         if (taskNum < 1 || taskNum > taskList.size()) {
-            throw new DukeException("     ☹ OOPS!!! Task " + taskNum + " does not exist");
+            throw new DukeException("     ☹ OOPS!!! Duke.Task " + taskNum + " does not exist");
         }
 
         //INPUT VALIDATED

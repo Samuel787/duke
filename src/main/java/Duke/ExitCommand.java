@@ -1,3 +1,5 @@
+package Duke;
+
 public class ExitCommand extends Command{
 
     public ExitCommand(Ui ui){
@@ -5,8 +7,8 @@ public class ExitCommand extends Command{
     }
 
     @Override
-    public void execute(){
-        ui.goodByeMessage();
+    public String execute(){
+        return ui.goodByeMessage();
     }
 
     @Override

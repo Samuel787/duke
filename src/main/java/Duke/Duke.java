@@ -1,3 +1,5 @@
+package Duke;
+
 public class Duke {
 
     private Storage storage;
@@ -14,7 +16,7 @@ public class Duke {
             ui.showError(d);
             ui.showLine();
             taskList = new TaskList();
-            
+
         }
     }
 

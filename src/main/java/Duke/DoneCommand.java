@@ -1,3 +1,5 @@
+package Duke;
+
 public class DoneCommand extends Command {
 
     private int task_num;
@@ -7,9 +9,9 @@ public class DoneCommand extends Command {
         this.task_num = task_num;
     }
 
-    public void execute() throws DukeException{
+    public String execute() throws DukeException{
         storage.dukeDoneTask(task_num);
         taskList.setDone(task_num);
-        ui.markDoneMessage(taskList.get(task_num));
+        return ui.markDoneMessage(taskList.get(task_num));
     }
 }

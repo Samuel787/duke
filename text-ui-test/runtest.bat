@@ -22,7 +22,7 @@ cd ..\..\..\bin
 REM move the data folder to the bin folder
 move ..\data .
 
-java Duke < ..\text-ui-test\input.txt > ..\text-ui-test\ACTUAL.txt
+java Duke.Duke < ..\text-ui-test\input.txt > ..\text-ui-test\ACTUAL.txt
 FC ..\text-ui-test\ACTUAL.txt ..\text-ui-test\EXPECTED.txt
 
 REM move the data file back out

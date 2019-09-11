@@ -1,10 +1,12 @@
+package Duke;
+
 public class DateTimeParser {
 
     public static String parseDeadlineInfo(String by) throws DukeException{
         //expected input format: dd/mm/year time
         String[] data = by.split(" ", 2); //split by whitespace
         if(data.length != 2){
-            throw new DukeException("     ☹ OOPS!!! Wrong input format for creating new Deadline. Follow this eg: deadline return book /by 2/12/2019 1800");
+            throw new DukeException("     ☹ OOPS!!! Wrong input format for creating new Duke.Deadline. Follow this eg: deadline return book /by 2/12/2019 1800");
         }
 
         //trim the data
@@ -12,7 +14,7 @@ public class DateTimeParser {
         data[1] = data[1].trim();
 
         String[] dates = data[0].split("/");
-        if(dates.length != 3) throw new DukeException("     ☹ OOPS!!! Wrong input format for date when creating new Deadline. Follow this eg: /by 2/12/2019 1800");
+        if(dates.length != 3) throw new DukeException("     ☹ OOPS!!! Wrong input format for date when creating new Duke.Deadline. Follow this eg: /by 2/12/2019 1800");
 
         int day, month, year, time;
         try{
@@ -22,12 +24,12 @@ public class DateTimeParser {
 
             time = Integer.parseInt(data[1]);
         } catch (NumberFormatException e){
-            throw new DukeException("     ☹ OOPS!!! Wrong input format for date or time when creating new Deadline. Follow this eg: /by 2/12/2019 1800");
+            throw new DukeException("     ☹ OOPS!!! Wrong input format for date or time when creating new Duke.Deadline. Follow this eg: /by 2/12/2019 1800");
         }
 
         //work with the data
         if(time < 0 || time > 2400){
-            throw new DukeException("     ☹ OOPS!!! Deadline time is not a valid input. Follow this eg: /by 2/12/2019 1800");
+            throw new DukeException("     ☹ OOPS!!! Duke.Deadline time is not a valid input. Follow this eg: /by 2/12/2019 1800");
         }
 
         if(isDateVaid(day, month, year)){
@@ -42,7 +44,7 @@ public class DateTimeParser {
         //expected input format dd/mm/year time-time
         String[] data = at.split(" ", 2); //split by whitespace
         if(data.length != 2){
-            throw new DukeException("     ☹ OOPS!!! Wrong input format for creating new Event. Follow this eg: event team meeting /at 2/12/2019 1600-2000");
+            throw new DukeException("     ☹ OOPS!!! Wrong input format for creating new Duke.Event. Follow this eg: event team meeting /at 2/12/2019 1600-2000");
         }
 
         //trim the data
@@ -51,7 +53,7 @@ public class DateTimeParser {
 
         //extract out the dates
         String[] dates = data[0].split("/");
-        if(dates.length != 3) throw new DukeException("     ☹ OOPS!!! Wrong input format for date when creating new Event. Follow this eg: /at 2/12/2019 1600-2000");
+        if(dates.length != 3) throw new DukeException("     ☹ OOPS!!! Wrong input format for date when creating new Duke.Event. Follow this eg: /at 2/12/2019 1600-2000");
 
         int day, month, year, time1, time2;
         try{
@@ -62,14 +64,14 @@ public class DateTimeParser {
             time1 = Integer.parseInt(times[0]);
             time2 = Integer.parseInt(times[1]);
         } catch (NumberFormatException e){
-            throw new DukeException("     ☹ OOPS!!! Wrong input format for date or time when creating new Event. Follow this eg: /at 2/12/2019 1600-2000");
+            throw new DukeException("     ☹ OOPS!!! Wrong input format for date or time when creating new Duke.Event. Follow this eg: /at 2/12/2019 1600-2000");
         } catch (IndexOutOfBoundsException e){
-            throw new DukeException("     ☹ OOPS!!! Wrong input format for date or time when creating new Event. Follow this eg: /at 2/12/2019 1600-2000");
+            throw new DukeException("     ☹ OOPS!!! Wrong input format for date or time when creating new Duke.Event. Follow this eg: /at 2/12/2019 1600-2000");
         }
 
         //work with the data
         if(time1 < 0 || time1 > 2400 || time2 < 0 || time2 > 2400){
-            throw new DukeException("     ☹ OOPS!!! Event timing is not a valid input. Follow this eg: /at 2/12/2019 1600-2000");
+            throw new DukeException("     ☹ OOPS!!! Duke.Event timing is not a valid input. Follow this eg: /at 2/12/2019 1600-2000");
         }
 
         if(time1 > time2){

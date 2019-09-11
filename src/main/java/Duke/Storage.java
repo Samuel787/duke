@@ -1,3 +1,5 @@
+package Duke;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -12,7 +14,7 @@ public class Storage {
     }
 
     /**
-     *  This method is invoked upon starting up Duke
+     *  This method is invoked upon starting up Duke.Duke
      *  It reads all the data from the data file and puts it into an ArrayList
      *  and returns this ArrayList
      * */
@@ -95,7 +97,7 @@ public class Storage {
      * */
     public void dukeDeleteTask(int taskNum)throws DukeException{
         try {
-            BufferedReader file = new BufferedReader(new FileReader("src/data/duke.txt"));
+            BufferedReader file = new BufferedReader(new FileReader("data/duke.txt"));
             StringBuffer inputBuffer = new StringBuffer();
             String line;
             int line_counter = 0;
@@ -111,7 +113,7 @@ public class Storage {
             }
             file.close();
 
-            FileOutputStream fileOut = new FileOutputStream("src/data/duke.txt");
+            FileOutputStream fileOut = new FileOutputStream("data/duke.txt");
             fileOut.write(inputBuffer.toString().getBytes());
             fileOut.close();
         } catch (IOException e) {

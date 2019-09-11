@@ -1,3 +1,5 @@
+package Duke;
+
 import java.util.ArrayList;
 
 public class FindCommand extends Command{
@@ -9,14 +11,14 @@ public class FindCommand extends Command{
         this.keyword = keyword;
     }
 
-    public void execute(){
+    public String execute(){
         ArrayList<Task> searchResults = new ArrayList<>();
         for(int i = 0; i < taskList.size(); i++){
             if(taskList.get(i).getDescription().contains(keyword)){
                 searchResults.add(taskList.get(i));
             }
         }
-        ui.foundTask(searchResults);
+        return ui.foundTask(searchResults);
     }
 
 }

@@ -1,3 +1,5 @@
+package Duke;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -35,7 +37,7 @@ public class Ui {
     public void showWelcome(){
         System.out.println(logo);
         System.out.println(duke_line);
-        System.out.println(duke_indent + "Hello! I'm Duke\n");
+        System.out.println(duke_indent + "Hello! I'm Duke.Duke\n");
         System.out.println(duke_indent + "What can I do for you?\n");
         System.out.println(duke_line);
     }
@@ -45,43 +47,71 @@ public class Ui {
         System.out.println(d.getMessage());
     }
 
-    public void goodByeMessage(){
+    public String goodByeMessage(){
+        String msg = duke_indent + "Bye. Hope to see you again soon!";
         System.out.println(duke_indent + "Bye. Hope to see you again soon!");
+        return msg;
     }
 
-    public void markDoneMessage(Task task){
+    public String markDoneMessage(Task task){
+        String msg = duke_indent+"Nice! I've marked this task as done:" + "\n";
+        msg += duke_indent + task;
+
         System.out.println(duke_indent+"Nice! I've marked this task as done:");
         System.out.println(duke_indent+task);
+
+        return msg;
     }
 
-    public void addedMessage(Task task, int numTasks) {
+    public String addedMessage(Task task, int numTasks) {
+        String msg = duke_indent + "Got it. I've added this task:" + "\n";
+        msg += duke_indent + "  " +task + "\n";
+        msg += duke_indent + "Now you have "+numTasks+" tasks in the list.";
+
         System.out.println(duke_indent + "Got it. I've added this task:");
         System.out.println(duke_indent + "  " +task);
         System.out.println(duke_indent + "Now you have "+numTasks+" tasks in the list.");
+
+        return msg;
     }
 
-    public void deletedMessage(Task task, int totalTasks){
+    public String deletedMessage(Task task, int totalTasks){
+        String msg = duke_indent + "Noted. I've removed this task:" + "\n";
+        msg += duke_indent + task + "\n";
+        msg += duke_indent + "Now you have " + totalTasks + " tasks in the list.";
+
         System.out.println(duke_indent + "Noted. I've removed this task:");
         System.out.println(duke_indent + task);
         System.out.println(duke_indent + "Now you have " + totalTasks + " tasks in the list.");
+
+        return msg;
     }
 
-    public void foundTask(ArrayList<Task> searchResults){
+    public String foundTask(ArrayList<Task> searchResults){
+        String msg = duke_indent+"Here are the matching tasks in your list:" + "\n";
+
         System.out.println(duke_indent+"Here are the matching tasks in your list:");
         int counter = 1;
         for(Task task : searchResults){
             System.out.println(duke_indent+counter+"."+task);
+            msg += duke_indent+counter+"."+task+"\n";
             counter++;
         }
+
+        return msg;
     }
 
     /**
      *  Lists out all the tasks
      * */
-    public void listTasks(TaskList taskList){
+    public String listTasks(TaskList taskList){
+        String msg = "";
+
         for(int i=1; i <= taskList.size(); i++){
+            msg += duke_indent + i +". " +taskList.get(i-1).toString() + "\n";
             System.out.println(duke_indent + i +". " +taskList.get(i-1).toString());
         }
+        return msg;
     }
 
 }

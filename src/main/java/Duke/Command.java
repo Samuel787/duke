@@ -1,3 +1,5 @@
+package Duke;
+
 public abstract class Command {
     protected TaskList taskList;
     protected Storage storage;
@@ -9,7 +11,7 @@ public abstract class Command {
         this.ui = ui;
     }
 
-    abstract public void execute() throws DukeException;
+    abstract public String execute() throws DukeException;
 
     public boolean isExit(){
         return false;
