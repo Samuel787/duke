@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class DeleteCommandTest {
+public class DoneCommandTest {
 
     //basic necessities
     private final String file_path = "dukeTest.txt";
@@ -15,7 +15,7 @@ public class DeleteCommandTest {
     private Parser parserTest;
     private final String duke_indent;
 
-    public DeleteCommandTest(){
+    public DoneCommandTest(){
         this.duke_indent = "     ";
         ui = new Ui();
         storage = new Storage(file_path);
@@ -32,32 +32,34 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void deleteCommand_deleteExistingTask_success(){
-        Task task = new ToDo("Task to be deleted");
-        String msg = duke_indent + "Noted. I've removed this task:" + "\n";
-        msg += duke_indent + task + "\n";
-        msg += duke_indent + "Now you have " + taskList.size() + " tasks in the list.";
+    public void successfulDone_doneLastEvent_success(){
+        Task task = new Deadline("Task to be marked done", "10/12/2019");
+
+        String msg = duke_indent+"Nice! I've marked this task as done:" + "\n";
+        msg += duke_indent + "[D][✓] Task to be marked done (by: 10/12/2019)";
+
         try{
             new AddCommand(taskList, storage, ui, task).execute();
-            String k =  new DeleteCommand(taskList, storage, ui, taskList.size()-1).execute();
-            assertEquals(msg,k);
-        } catch(DukeException d){
+            assertEquals(msg ,new DoneCommand(taskList,storage, ui, taskList.size()-1).execute());
+        } catch (DukeException d){
             System.out.println(d.getMessage());
             fail();
         }
     }
 
     @Test
-    public void deleteCommand_wrongFilePath_dukeException(){
-        Task task = new ToDo("Task to be deleted");
-        String msg = duke_indent + "Noted. I've removed this task:" + "\n";
-        msg += duke_indent + task + "\n";
-        msg += duke_indent + "Now you have " + taskList.size() + " tasks in the list.";
+    public void doneCommand_wrongFilePath_dukeException(){
+        Task task = new Deadline("Task to be marked done", "10/12/2019");
+
+        String msg = duke_indent+"Nice! I've marked this task as done:" + "\n";
+        msg += duke_indent + "[D][✓] Task to be marked done (by: 10/12/2019)";
+
         try{
             new AddCommand(taskList, storage, ui, task).execute();
-            assertEquals("",new DeleteCommand(taskList,new Storage("jk/duke.txt"), ui, taskList.size()-1).execute());
+            assertEquals("",new DoneCommand(taskList,new Storage("jk/duke.txt"), ui, taskList.size()-1).execute());
             fail(); //should not reach this line
-        } catch(DukeException d){
+        } catch (DukeException d){
+            System.out.println(d.getMessage());
             assertEquals("     ☹ OOPS!!! Could not update task in hard disk right now :-(", d.getMessage());
         }
     }

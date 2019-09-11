@@ -17,3 +17,115 @@ T|0|eat
 E|0|Study CS2113t|13/09/2019 1600-1800
 D|0|Finish Duke|12/09/2019 2359
 T|0|eat
+T|0|Task to be deleted
+T|0|Task to be deleted
+T|0|Task to be deleted
+T|0|Task to be deleted
+T|0|Task to be deleted
+T|0|Task to be deleted
+T|0|Task to be deleted
+T|0|Task to be deleted
+T|0|eat
+E|0|Study CS2113t|13/09/2019 1600-1800
+D|0|Finish Duke|12/09/2019 2359
+T|0|eat
+T|0|Task to be deleted
+T|0|eat
+E|0|Study CS2113t|13/09/2019 1600-1800
+D|0|Finish Duke|12/09/2019 2359
+T|0|eat
+T|0|Task to be deleted
+T|0|eat
+E|0|Study CS2113t|13/09/2019 1600-1800
+D|0|Finish Duke|12/09/2019 2359
+T|0|eat
+T|0|Task to be deleted
+T|0|eat
+E|0|Study CS2113t|13/09/2019 1600-1800
+D|0|Finish Duke|12/09/2019 2359
+T|0|eat
+T|0|Task to be deleted
+T|0|eat
+E|0|Study CS2113t|13/09/2019 1600-1800
+D|0|Finish Duke|12/09/2019 2359
+T|0|eat
+T|0|Task to be deleted
+E|0|Study CS2113t|13/09/2019 1600-1800
+D|0|Finish Duke|12/09/2019 2359
+T|0|eat
+T|0|Task to be deleted
+D|1|Task to be marked done|10/12/2019
+E|0|Study CS2113t|13/09/2019 1600-1800
+D|0|Finish Duke|12/09/2019 2359
+T|0|eat
+T|0|Task to be deleted
+D|1|Task to be marked done|10/12/2019
+E|0|Study CS2113t|13/09/2019 1600-1800
+D|0|Finish Duke|12/09/2019 2359
+T|0|eat
+T|0|Task to be deleted
+D|0|Task to be marked done|10/12/2019
+D|1|Task to be marked done|10/12/2019
+E|0|Study CS2113t|13/09/2019 1600-1800
+D|0|Finish Duke|12/09/2019 2359
+T|0|eat
+T|0|Task to be deleted
+D|0|Task to be marked done|10/12/2019
+D|1|Task to be marked done|10/12/2019
+E|0|Study CS2113t|13/09/2019 1600-1800
+D|0|Finish Duke|12/09/2019 2359
+T|0|eat
+T|0|Task to be deleted
+D|0|Task to be marked done|10/12/2019
+D|1|Task to be marked done|10/12/2019
+E|0|Study CS2113t|13/09/2019 1600-1800
+D|0|Finish Duke|12/09/2019 2359
+T|0|eat
+T|0|Task to be deleted
+D|0|Task to be marked done|10/12/2019
+D|1|Task to be marked done|10/12/2019
+E|0|Study CS2113t|13/09/2019 1600-1800
+D|0|Finish Duke|12/09/2019 2359
+T|0|eat
+T|0|Task to be deleted
+D|0|Task to be marked done|10/12/2019
+D|1|Task to be marked done|10/12/2019
+E|0|Study CS2113t|13/09/2019 1600-1800
+D|0|Finish Duke|12/09/2019 2359
+T|0|eat
+T|0|Task to be deleted
+D|0|Task to be marked done|10/12/2019
+D|1|Task to be marked done|10/12/2019
+E|0|Study CS2113t|13/09/2019 1600-1800
+D|0|Finish Duke|12/09/2019 2359
+T|0|eat
+T|0|Task to be deleted
+D|0|Task to be marked done|10/12/2019
+D|1|Task to be marked done|10/12/2019
+E|0|Study CS2113t|13/09/2019 1600-1800
+D|0|Finish Duke|12/09/2019 2359
+T|0|eat
+T|0|Task to be deleted
+D|0|Task to be marked done|10/12/2019
+D|1|Task to be marked done|10/12/2019
+E|0|Study CS2113t|13/09/2019 1600-1800
+D|0|Finish Duke|12/09/2019 2359
+T|0|eat
+T|0|Task to be deleted
+D|0|Task to be marked done|10/12/2019
+D|1|Task to be marked done|10/12/2019
+E|0|Study CS2113t|13/09/2019 1600-1800
+D|0|Finish Duke|12/09/2019 2359
+T|0|eat
+T|0|Task to be deleted
+D|0|Task to be marked done|10/12/2019
+D|1|Task to be marked done|10/12/2019
+E|0|Study CS2113t|13/09/2019 1600-1800
+D|0|Finish Duke|12/09/2019 2359
+T|0|eat
+T|0|Task to be deleted
+D|0|Task to be marked done|10/12/2019
+D|1|Task to be marked done|10/12/2019
+E|0|Study CS2113t|13/09/2019 1600-1800
+D|0|Finish Duke|12/09/2019 2359
+T|0|eat

@@ -97,7 +97,7 @@ public class Storage {
      * */
     public void dukeDeleteTask(int taskNum)throws DukeException{
         try {
-            BufferedReader file = new BufferedReader(new FileReader("data/duke.txt"));
+            BufferedReader file = new BufferedReader(new FileReader(file_path));
             StringBuffer inputBuffer = new StringBuffer();
             String line;
             int line_counter = 0;
@@ -113,7 +113,7 @@ public class Storage {
             }
             file.close();
 
-            FileOutputStream fileOut = new FileOutputStream("data/duke.txt");
+            FileOutputStream fileOut = new FileOutputStream(file_path);
             fileOut.write(inputBuffer.toString().getBytes());
             fileOut.close();
         } catch (IOException e) {

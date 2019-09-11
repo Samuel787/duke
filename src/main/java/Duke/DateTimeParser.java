@@ -88,7 +88,7 @@ public class DateTimeParser {
     /**
      *  checking if the user input date is a valid one
      * */
-    private static boolean isDateVaid(int d, int m, int y){
+    public static boolean isDateVaid(int d, int m, int y){
         if(d < 1 || d > 31 || m < 1 || m > 12 || y < 0){
             return false;
         }
