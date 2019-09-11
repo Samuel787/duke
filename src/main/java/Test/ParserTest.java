@@ -1,5 +1,3 @@
-package Test;
-
 import Duke.*;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class ParserTest {
 
     //basic necessities
-    private final String file_path = "data/dukeTest.txt";
+    private final String file_path = "dukeTest.txt";
     private Ui ui;
     private Storage storage;
     private TaskList taskList;

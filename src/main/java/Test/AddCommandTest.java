@@ -1,4 +1,4 @@
-package Test;
+
 import Duke.*;
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +24,7 @@ public class AddCommandTest {
      * */
 
     //basic necessities
-    private final String file_path = "data/dukeTest.txt";
+    private final String file_path = "dukeTest.txt";
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
