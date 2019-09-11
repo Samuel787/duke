@@ -30,20 +30,27 @@ public class ParserTest {
         parserTest = new Parser(taskList, storage, ui);
     }
 
-    @Test
-    public void dummyTest(){
-        try{
-            Task task = new ToDo("eat");
-            int numTasks = taskList.size() + 1;
-            String msg = duke_indent + "Got it. I've added this task:" + "\n";
-            msg += duke_indent + "  " +task + "\n";
-            msg += duke_indent + "Now you have "+numTasks+" tasks in the list.";
 
-            assertEquals(msg, parserTest.parse("todo eat").execute());
-        } catch (Exception e){
-            fail(); //test should not fail
-            //assertEquals("", e.getMessage());
+    @Test
+    public void wrongUserInput_randomCommand_DukeException(){
+        try{
+            parserTest.parse("ilovecs2113t");
+            fail(); //should not reach this line
+        } catch (DukeException d){
+            assertEquals("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(", d.getMessage());
         }
 
+    }
+
+    @Test
+    public void wrongDoneUserInput_numExceedsTasks_DukeException(){
+        int k = taskList.size();
+        k++;
+        try{
+            parserTest.parse("done "+k);
+            fail(); //should not reach this line
+        } catch (DukeException d){
+            assertEquals("     ☹ OOPS!!! Invalid done command entered. "+ k + " exceeds the number of tasks in the list.", d.getMessage());
+        }
     }
 }
