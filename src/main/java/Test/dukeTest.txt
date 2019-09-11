@@ -13,3 +13,7 @@ T|0|eat
 E|0|Study CS2113t|13/09/2019 1600-1800
 D|0|Finish Duke|12/09/2019 2359
 T|0|eat
+T|0|eat
+E|0|Study CS2113t|13/09/2019 1600-1800
+D|0|Finish Duke|12/09/2019 2359
+T|0|eat
