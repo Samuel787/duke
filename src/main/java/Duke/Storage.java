@@ -3,21 +3,29 @@ package Duke;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * The Storage class interacts with the data file to update the content
+ */
 public class Storage {
 
     private String file_path;
     private int numTasks;
 
+    /**
+     * The Storage class needs the relative path of the data file so that it can interact with it
+     * @param file_path the relative path of the data file
+     */
     public Storage(String file_path){
         this.file_path = file_path;
         numTasks = 0;
     }
 
     /**
-     *  This method is invoked upon starting up Duke.Duke
-     *  It reads all the data from the data file and puts it into an ArrayList
-     *  and returns this ArrayList
-     * */
+     * This method will read all the tasks in the data file, insert them into an ArrayList of Tasks
+     * and returns this ArrayList.
+     * @return ArrayList of tasks from the data file
+     * @throws DukeException
+     */
     public ArrayList<Task> load() throws DukeException{
         ArrayList<Task> tasks = new ArrayList<>();
         try{
@@ -53,15 +61,16 @@ public class Storage {
             }
             br.close();
         } catch (IOException e){
-            throw new DukeException("");
+            throw new DukeException("Error parsing data from data file");
         }
         return tasks;
     }
 
-
     /**
-     * This method adds the task to the file
-     * */
+     * This method takes in a task that needs to be added and appends it to the data file
+     * @param task the task that has to be added to the data file
+     * @throws DukeException if there is any IOException with file opening, writing or closing, this exception gets thrown
+     */
     public void dukeAddTask(Task task) throws DukeException{
         try{
             //write task to the file
@@ -93,8 +102,12 @@ public class Storage {
     }
 
     /**
-     *  This method executes a valid delete command on the data
-     * */
+     * This method takes in the taskNum to delete from the data file and deletes that task and updates the data file
+     * @param taskNum taskNum refers to the task number of the task. Task number always starts from 0. However, for the users,
+     *                taskNum will start from 1. Hence, in the implementation, the taskNum must be decremented by 1 before calling
+     *                this method
+     * @throws DukeException if there is any IOException with file opening, writing or closing, this exception gets thrown
+     */
     public void dukeDeleteTask(int taskNum)throws DukeException{
         try {
             BufferedReader file = new BufferedReader(new FileReader(file_path));
@@ -121,10 +134,12 @@ public class Storage {
         }
     }
 
-
     /**
-     *  This command executes a valid done command on the data
-     * */
+     * This method marks the task corresponding to the taskNum as done in the data file
+     * @param taskNum taskNum refers to the task number of the task. This starts from 0. However, for the user, it starts from 1.
+     *                Hence, the value has to be decremented by 1 before passing into this method call
+     * @throws DukeException if there is any IOException with file opening, writing or closing, this exception gets thrown
+     */
     public void dukeDoneTask(int taskNum) throws DukeException{
         //update hard disk
         try{

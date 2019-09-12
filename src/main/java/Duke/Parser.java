@@ -1,22 +1,40 @@
 package Duke;
 
+/**
+ * Parser class handles all user inputs.
+ * It will parse the user input to identify what the user wants
+ * and then validates the user input.
+ * Upon successful validation, it turns it into a command and returns the command
+ * to the caller.
+ * The command can be executed by the caller at any time.
+ */
 public class Parser {
-
-    /**
-     *  this parser will receive the user input and validates it before
-     *  expressing it as a command
-     * */
 
     private TaskList taskList;
     private Storage storage;
     private Ui ui;
 
+    /**
+     * The constructor requires a reference to the instance of TaskList, Storage and Ui used by the program
+     * @param taskList reference to the TaskList used by the program containing all the tasks for easy access
+     * @param storage reference to the Storage used by the program to interact with the data file
+     * @param ui reference to the Ui instance to interact with the user via the terminal
+     */
     public Parser(TaskList taskList, Storage storage, Ui ui){
         this.taskList = taskList;
         this.storage = storage;
         this.ui = ui;
     }
 
+
+    /**
+     * The parse method takes in the user input and parse it to understand what the user wants.
+     * If the user enters a valid command, it will then call the respective methods to validate the user description
+     * of the task. Upon validation, the method will generate the corresponding command and return it.
+     * @param user_input the input entered by the user on the terminal when interacting with duke
+     * @return a command corresponding to what the user wants
+     * @throws DukeException invalid input command by the user will result in this exception
+     */
     public Command parse(String user_input) throws DukeException{
         user_input = user_input.trim(); //remove white spaces on both sides on input
 
@@ -43,13 +61,14 @@ public class Parser {
 
 
 
-    /**
+    /*
      *  Generally
      *  0. Parse the data
      *  1. validate the data
      *      1.1 if data is invalid, throw duke exception
      *      1.2 if data is valid, generate the command and return it
      * */
+
 
     private AddCommand parseTodo(String todo_input) throws DukeException{
         todo_input = todo_input.substring(4).trim();

@@ -1,7 +1,18 @@
 package Duke;
 
+/**
+ * This class helps to validate dates and times that the user provide
+ * Furthermore, it helps duke understand date and time with relevant parsings
+ */
 public class DateTimeParser {
 
+    /**
+     * This method helps duke to understand data and time information for deadlines
+     * @param by contains the date and time information for a deadline task. It must be in this specific format
+     *           dd/mm/yy hhmm
+     * @return a string that contains the parsed data and time information for storage purposes in duke
+     * @throws DukeException DukeException is thrown when an invalid date, time in entered or when the format for input is not followed
+     */
     public static String parseDeadlineInfo(String by) throws DukeException{
         //expected input format: dd/mm/year time
         String[] data = by.split(" ", 2); //split by whitespace
@@ -40,6 +51,14 @@ public class DateTimeParser {
 
     }
 
+
+    /**
+     * This method helps duke to understand data and time information for events
+     * @param at contains the date and time information for an event task. It must be in this specific format
+     *           dd/mm/yy hhmm-hhmm
+     * @return a string that contains the parsed data and time information for storage purposes in duke
+     * @throws DukeException DukeException is thrown when an invalid date, time in entered or when the format for input is not followed
+     */
     public static String parseEventInfo(String at) throws DukeException{
         //expected input format dd/mm/year time-time
         String[] data = at.split(" ", 2); //split by whitespace
@@ -86,8 +105,12 @@ public class DateTimeParser {
     }
 
     /**
-     *  checking if the user input date is a valid one
-     * */
+     * This method checks if a date entered is a valid calendar date
+     * @param d day of the month.
+     * @param m month of the year
+     * @param y year
+     * @return true if the entered date is a valid calendar date. Else, it will return false.
+     */
     public static boolean isDateVaid(int d, int m, int y){
         if(d < 1 || d > 31 || m < 1 || m > 12 || y < 0){
             return false;
